@@ -134,6 +134,33 @@ for (let i = 0; i < formInputs.length; i++) {
   });
 }
 
+// Form submission functionality
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+  const payload = Object.fromEntries(formData);
+
+  try {
+    const response = await fetch("http://localhost:5000", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(payload),
+    });
+
+    if (response.ok) {
+      const result = await response.text();
+      alert(result);
+      form.reset();
+      formBtn.setAttribute("disabled", ""); // Disable button again
+    } else {
+      alert("Error submitting the form. Please try again.");
+    }
+  } catch (error) {
+    console.error("Form submission error:", error);
+    alert("An error occurred. Please try again later.");
+  }
+});
 
 
 // page navigation variables
@@ -158,59 +185,59 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-let http = require("http")
-let { parse } = require("querystring")
-let fs = require("fs")
-let nodemailer = require("nodemailer")
-require('dotenv').config()  // Make sure to use dotenv to secure credentials
+// let http = require("http")
+// let { parse } = require("querystring")
+// let fs = require("fs")
+// let nodemailer = require("nodemailer")
+// require('dotenv').config()  // Make sure to use dotenv to secure credentials
 
-let server = http.createServer((req, res) => {
-  if (req.method === 'POST') {
-    let form_URLENCODED = "application/x-www-form-urlencoded"
-    if (req.headers["content-type"] === form_URLENCODED) {
-      let body = ""
-      req.on('data', chunk => {
-        body += chunk.toString()
-      })
-      req.on('end', () => {
-        let formData = parse(body)
-        let email = formData.email
-        console.log("Email:", email)
+// let server = http.createServer((req, res) => {
+//   if (req.method === 'POST') {
+//     let form_URLENCODED = "application/x-www-form-urlencoded"
+//     if (req.headers["content-type"] === form_URLENCODED) {
+//       let body = ""
+//       req.on('data', chunk => {
+//         body += chunk.toString()
+//       })
+//       req.on('end', () => {
+//         let formData = parse(body)
+//         let email = formData.email
+//         console.log("Email:", email)
 
-        // Using environment variables for email credentials
-        let transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.EMAIL_USER,  // Set in .env
-            pass: process.env.EMAIL_PASS   // Set in .env
-          }
-        })
+//         // Using environment variables for email credentials
+//         let transporter = nodemailer.createTransport({
+//           service: "gmail",
+//           auth: {
+//             user: process.env.EMAIL_USER,  // Set in .env
+//             pass: process.env.EMAIL_PASS   // Set in .env
+//           }
+//         })
 
-        let mailOptions = {
-          from: process.env.EMAIL_USER,
-          to: email,
-          subject: "Mail Subscription",
-          html: `<h1>Hello!</h1>
-                 <p>Thank you for subscribing.</p>
-                 <p>Email: ${email}</p>`
-        }
+//         let mailOptions = {
+//           from: process.env.EMAIL_USER,
+//           to: email,
+//           subject: "Mail Subscription",
+//           html: `<h1>Hello!</h1>
+//                  <p>Thank you for subscribing.</p>
+//                  <p>Email: ${email}</p>`
+//         }
 
-        transporter.sendMail(mailOptions, (err) => {
-          if (err) throw err
-          console.log("Mail sent successfully")
-        })
+//         transporter.sendMail(mailOptions, (err) => {
+//           if (err) throw err
+//           console.log("Mail sent successfully")
+//         })
 
-        res.end("Message sent to: " + email)
-      })
-    } else {
-      res.end(null)
-    }
-  } else {
-    res.writeHead(200, { "content-type": "text/html" })
-    fs.createReadStream("./index.html", "utf-8").pipe(res)
-  }
-})
+//         res.end("Message sent to: " + email)
+//       })
+//     } else {
+//       res.end(null)
+//     }
+//   } else {
+//     res.writeHead(200, { "content-type": "text/html" })
+//     fs.createReadStream("./index.html", "utf-8").pipe(res)
+//   }
+// })
 
-server.listen(5000, () => {
-  console.log("Server is running at http://localhost:5000")
-})
+// server.listen(5000, () => {
+//   console.log("Server is running at http://localhost:5000")
+// })
