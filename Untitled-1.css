@@ -1,0 +1,116 @@
+/*-----------------------------------*\
+  #CUSTOM PROPERTY
+\*-----------------------------------*/
+:root {
+  /* Default Light Mode Variables */
+  --bg-color: var(--white-2);
+  --text-color: var(--smoky-black);
+  --primary-bg: var(--bg-gradient-yellow-1);
+  --secondary-bg: var(--bg-gradient-onyx);
+  --button-bg: var(--jet);
+
+  /* Keep existing properties as is */
+  --bg-gradient-onyx: linear-gradient(
+    to bottom right,
+    hsl(240, 1%, 25%) 3%,
+    hsl(0, 0%, 19%) 97%
+  );
+  --bg-gradient-jet: linear-gradient(
+    to bottom right,
+    hsla(240, 1%, 18%, 0.251) 0%,
+    hsla(240, 2%, 11%, 0) 100%
+  ),
+    hsl(240, 2%, 13%);
+  --jet: hsl(0, 0%, 22%);
+  --onyx: hsl(240, 1%, 17%);
+  --eerie-black-1: hsl(240, 2%, 13%);
+  --eerie-black-2: hsl(240, 2%, 12%);
+  --smoky-black: hsl(0, 0%, 7%);
+  --white-1: hsl(0, 0%, 100%);
+  --white-2: hsl(0, 0%, 98%);
+  --orange-yellow-crayola: hsl(45, 100%, 72%);
+  --light-gray: hsl(0, 0%, 84%);
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+  --bg-color: var(--smoky-black);
+  --text-color: var(--white-2);
+  --primary-bg: var(--bg-gradient-jet);
+  --secondary-bg: var(--bg-gradient-onyx);
+  --button-bg: var(--white-1);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.sidebar,
+article {
+  background: var(--secondary-bg);
+  color: var(--text-color);
+}
+
+.theme-toggle-btn {
+  padding: 10px 15px;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Update existing styles dynamically */
+.article-title,
+.h2,
+.h3,
+.h4 {
+  color: var(--text-color);
+}
+
+.button {
+  background: var(--button-bg);
+  color: var(--text-color);
+}
+
+.sidebar {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--jet);
+}
+
+/* Adjust other elements for dynamic theming */
+.separator {
+  background-color: var(--text-color);
+}
+
+.icon-box {
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+}
+
+/* Additional elements as needed */
+.input-wrapper input,
+textarea {
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+}
+
+.input-wrapper input::placeholder,
+textarea::placeholder {
+  color: var(--text-color);
+}
+
+/* Scrollbar adjustments */
+body::-webkit-scrollbar {
+  background-color: var(--secondary-bg);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--primary-bg);
+}
